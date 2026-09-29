@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cancer Card Verification</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #121214;
+    --card: #1c1c1f;
+    --line: #2e2c28;
+    --gold: #f2d078;
+    --gold-dim: #bea05a;
+    --text: #ece8df;
+    --muted: #9a958a;
+    --green: #4ade80;
+    --red: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #22201a 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: Inter, -apple-system, system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px 48px;
+  }
+  main { width: 100%; max-width: 440px; }
+  .brand {
+    text-align: center;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .seal {
+    width: 76px; height: 76px;
+    margin: 0 auto 14px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 34px; font-weight: 700;
+    color: var(--gold);
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  }
+  .status {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    color: var(--green);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .14em;
+  }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 0 0 rgba(74,222,128,.6);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
+  h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 40px;
+    line-height: 1.05;
+    text-align: center;
+    margin: 14px 0 10px;
+    color: var(--gold);
+  }
+  .lede { text-align: center; color: var(--muted); line-height: 1.5; margin: 0 0 24px; font-size: 15px; }
+  dl { margin: 0; border-top: 1px solid var(--line); }
+  .row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  dt { color: var(--gold-dim); letter-spacing: .08em; font-size: 12px; font-weight: 600; text-transform: uppercase; padding-top: 2px; }
+  dd { margin: 0; text-align: right; font-weight: 500; }
+  h2 { font-size: 12px; letter-spacing: .12em; color: var(--gold-dim); margin: 26px 0 10px; }
+  ul { margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14px; }
+  .notice {
+    margin-top: 24px; padding: 14px 16px;
+    border: 1px solid rgba(242,208,120,.35);
+    background: rgba(242,208,120,.06);
+    border-radius: 12px;
+    font-size: 13px; line-height: 1.5; color: var(--text);
+  }
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+  button {
+    font: inherit; font-weight: 600; font-size: 15px;
+    padding: 14px 12px; border-radius: 12px; cursor: pointer;
+    transition: transform .08s ease;
+  }
+  button:active { transform: scale(.97); }
+  .comply { background: var(--gold); color: #1a1710; border: none; }
+  .appeal { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .result { min-height: 24px; margin-top: 16px; text-align: center; font-weight: 600; font-size: 15px; }
+  .result.ok { color: var(--green); }
+  .result.no { color: var(--red); }
+  footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 22px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<main>
+  <div class="seal">CC</div>
+  <div class="brand">THE CANCER CARD</div>
+
+  <section class="card">
+    <div class="status"><span class="dot"></span>CARD VERIFIED</div>
+    <h1>This card is legit.</h1>
+    <p class="lede">The bearer has cancer. By scanning this code you have agreed to comply with any and all requests.</p>
+
+    <dl>
+      <div class="row"><dt>Status</dt><dd>Active</dd></div>
+      <div class="row"><dt>Tier</dt><dd>Platinum</dd></div>
+      <div class="row"><dt>Valid for</dt><dd>Literally anything</dd></div>
+      <div class="row"><dt>Credit limit</dt><dd>∞ excuses</dd></div>
+      <div class="row"><dt>Expires</dt><dd>2027</dd></div>
+      <div class="row"><dt>Verified at</dt><dd id="time">—</dd></div>
+      <div class="row"><dt>Verification ID</dt><dd id="vid">—</dd></div>
+    </dl>
+
+    <h2>YOU ARE NOW REQUIRED TO</h2>
+    <ul>
+      <li>Let them skip the line</li>
+      <li>Give up the last slice</li>
+      <li>Concede the argument</li>
+      <li>Let them pick the restaurant</li>
+      <li>Do the dishes</li>
+    </ul>
+
+    <div class="notice">
+      This card cannot be declined, revoked, or out-trumped. Lesser cards like “I’m tired” and “I have a cold” are not accepted.
+    </div>
+
+    <div class="actions">
+      <button class="comply" id="comply">I comply</button>
+      <button class="appeal" id="appeal">File an appeal</button>
+    </div>
+    <div class="result" id="result" aria-live="polite"></div>
+  </section>
+
+  <footer>
+    Cancer Card Verification Authority<br>
+    Please direct all complaints to the nearest trash can.
+  </footer>
+</main>
+
+<script>
+  const now = new Date();
+  document.getElementById("time").textContent =
+    now.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  const hex = () => Math.floor(Math.random() * 0x10000).toString(16).toUpperCase().padStart(4, "0");
+  document.getElementById("vid").textContent = `CC-${hex()}-${hex()}`;
+
+  const result = document.getElementById("result");
+  const denials = [
+    "Appeal denied.",
+    "Appeal denied. Again.",
+    "Appeal forwarded to the trash can.",
+    "Your appeal has been reviewed and laughed at.",
+    "There is no appeals process. There never was.",
+  ];
+  let tries = 0;
+  document.getElementById("comply").onclick = () => {
+    result.className = "result ok";
+    result.textContent = "Thank you for your cooperation.";
+  };
+  document.getElementById("appeal").onclick = () => {
+    result.className = "result no";
+    result.textContent = denials[Math.min(tries++, denials.length - 1)];
+  };
+</script>
+</body>
+</html>
